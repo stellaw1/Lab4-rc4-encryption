@@ -11,23 +11,24 @@ module array_shuffle
 	);
 
 	// FSM states
-	reg [6:0] state = waiting;
+	reg [8:0] state = waiting;
 
-	parameter WAITING = 6'b000_0000;
-	parameter COUNTING = 6'b001_0000;
-	parameter READI = 6'b010_0000;
-	parameter CALCJ = 6'b011_0010;
-	parameter READJ = 6'b100_1000;
-	parameter WRITEJ = 6'b110_1001;
-	parameter WRITEI = 6'b101_0001;
-	parameter FINISH = 6'b111_0100;
+	parameter WAITING = 9'b000_000_000;
+	parameter COUNTING = 9'b001_000_000;
+	parameter READI = 9'b010_000_010;
+	parameter CALCJ = 9'b011_000_100;
+	parameter READJ = 9'b100_001_001;
+	parameter WRITEJ = 9'b110_011_000;
+	parameter WRITEI = 9'b101_010_000;
+	parameter FINISH = 9'b111_100_000;
 
 	// variables
 	reg [7:0] counter = 8'b0;
 	reg [7:0] j = 8'b0;
+	reg [7:0] si, sj;
 	reg [7:0] secret_key [2:0];
 	reg [1:0] secret_key_index;
-	logic en_j, addr_j;
+	logic en_j, en_si, en_sj, addr_j;
 	
 	// FSM
 	always_ff @(posedge clk)
@@ -68,17 +69,37 @@ module array_shuffle
 	// DFF storing j value
 	always_ff @(posedge clk)
 	begin
-		if (en_j) j <= j + data_in + secret_key[secret_key_index];
+		if (en_j) j <= j + si + secret_key[secret_key_index];
 		else j <= j;
 	end
 
+	// DFF storing s[i] value
+	always_ff @(posedge clk)
+	begin
+		if (en_si) si <= data_in;
+		else si <= si;
+	end
+
+	// DFF storing s[j] value
+	always_ff @(posedge clk)
+	begin
+		if (en_sj) sj <= data_in;
+		else sj <= sj;
+	end
+
 	assign addr_out = addr_j ? j : counter;
+	assign data_out = addr_j ? si : sj;
 
 	// FSM outputs
-	assign addr_j = state[3];
-	assign finish = state[2];
-	assign en_j = state[1];
-	assign mem_write = state[0];
+	assign finish = state[6];
+	assign mem_write = state[5];
+	assign addr_j = state[4];
+	assign data_out_j = state[3];
+
+	assign en_j = state[2];
+	assign en_si = state[1];
+	assign en_sj = state[0];
+
 
 	// init secret_key array
 	assign secret_key[0] = 8'b0;
