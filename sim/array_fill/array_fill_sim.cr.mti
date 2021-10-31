@@ -1,4 +1,11 @@
-C:/Users/amirb/School/2021-2022/CPEN311/cpen311-Lab4/sim/array_fill/array_fill_tb.sv {1 {vlog -work work -sv -stats=none C:/Users/amirb/School/2021-2022/CPEN311/cpen311-Lab4/sim/array_fill/array_fill_tb.sv
+C:/Users/amirb/School/2021-2022/CPEN311/cpen311-Lab4/array_fill.sv {1 {vlog -work work -sv -stats=none C:/Users/amirb/School/2021-2022/CPEN311/cpen311-Lab4/array_fill.sv
+Model Technology ModelSim ALTERA vlog 10.3c Compiler 2014.09 Sep 20 2014
+-- Compiling module array_fill
+
+Top level modules:
+	array_fill
+
+} {} {}} C:/Users/amirb/School/2021-2022/CPEN311/cpen311-Lab4/sim/array_fill/array_fill_tb.sv {1 {vlog -work work -sv -stats=none C:/Users/amirb/School/2021-2022/CPEN311/cpen311-Lab4/sim/array_fill/array_fill_tb.sv
 Model Technology ModelSim ALTERA vlog 10.3c Compiler 2014.09 Sep 20 2014
 -- Compiling module array_fill_tb
 

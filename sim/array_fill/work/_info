@@ -10,15 +10,15 @@ cModel Technology
 dC:/Users/amirb/School/2021-2022/CPEN311/homework3/edge_detector
 varray_fill
 Z0 DXx6 sv_std 3 std 0 22 <EOTafDcUY:cQeO^ICn]m3
-Z1 !s110 1635713916
+Z1 !s110 1635715611
 !i10b 1
-!s100 i@5cnV6Ia<ZXAlhO5FRh73
-IMQj<Ol8UYZzgXzEHED0QX1
+!s100 QQ^QV`9TAmEiLoFgGTP5V2
+I2AH=kUKV9[ZN5om15P5MN0
 Z2 V`JN@9S9cnhjKRR_L]QIcM3
 !s105 array_fill_sv_unit
 S1
 Z3 dC:/Users/amirb/School/2021-2022/CPEN311/cpen311-Lab4/sim/array_fill
-w1635713878
+w1635715335
 8C:/Users/amirb/School/2021-2022/CPEN311/cpen311-Lab4/array_fill.sv
 FC:/Users/amirb/School/2021-2022/CPEN311/cpen311-Lab4/array_fill.sv
 L0 1
@@ -26,7 +26,7 @@ Z4 OV;L;10.3c;59
 r1
 !s85 0
 31
-!s108 1635713916.886000
+!s108 1635715611.401000
 !s107 C:/Users/amirb/School/2021-2022/CPEN311/cpen311-Lab4/array_fill.sv|
 !s90 -reportprogress|300|-work|work|-sv|-stats=none|C:/Users/amirb/School/2021-2022/CPEN311/cpen311-Lab4/array_fill.sv|
 !i113 1
@@ -35,13 +35,13 @@ varray_fill_tb
 R0
 R1
 !i10b 1
-!s100 e:782E<f2L60WPHiJV<?F3
-IWb=Roi>U>ni3Pl6_QJYGT3
+!s100 5STHaTb;XS2NKLG[l9NlA1
+I@Bf6]J<geRTGcG:<RQkJT1
 R2
 !s105 array_fill_tb_sv_unit
 S1
 R3
-w1635713908
+w1635715491
 8C:/Users/amirb/School/2021-2022/CPEN311/cpen311-Lab4/sim/array_fill/array_fill_tb.sv
 FC:/Users/amirb/School/2021-2022/CPEN311/cpen311-Lab4/sim/array_fill/array_fill_tb.sv
 L0 1
@@ -49,7 +49,7 @@ R4
 r1
 !s85 0
 31
-!s108 1635713916.851000
+!s108 1635715611.365000
 !s107 C:/Users/amirb/School/2021-2022/CPEN311/cpen311-Lab4/sim/array_fill/array_fill_tb.sv|
 !s90 -reportprogress|300|-work|work|-sv|-stats=none|C:/Users/amirb/School/2021-2022/CPEN311/cpen311-Lab4/sim/array_fill/array_fill_tb.sv|
 !i113 1

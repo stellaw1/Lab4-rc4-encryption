@@ -1,8 +1,8 @@
 module array_fill_tb();
 	logic clk, start, finish;
-	logic [7:0] array [255:0];
+	logic [7:0] data;
 
-	array_fill dut(.clk(clk), .start(start), .finish(finish), .array(array));
+	array_fill dut(.clk(clk), .start(start), .finish(finish), .data(data));
 
 	initial begin
 		forever begin
