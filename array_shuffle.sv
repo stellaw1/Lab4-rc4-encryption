@@ -91,10 +91,9 @@ module array_shuffle
 	assign data_out = addr_j ? si : sj;
 
 	// FSM outputs
-	assign finish = state[6];
-	assign mem_write = state[5];
-	assign addr_j = state[4];
-	assign data_out_j = state[3];
+	assign finish = state[5];
+	assign mem_write = state[4];
+	assign addr_j = state[3];
 
 	assign en_j = state[2];
 	assign en_si = state[1];
