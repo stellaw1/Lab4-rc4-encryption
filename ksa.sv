@@ -42,23 +42,45 @@ SevenSegmentDisplayDecoder ssdd (
     .nIn(nIn)
 );
 
-logic finish;
-logic [7:0] i;
-logic [7:0] out;
+logic mem_write;
+logic [7:0] mem_addr;
+logic [7:0] mem_data_in;
+logic [7:0] mem_data_out;
 
-array_fill for_i (
+logic init_finish; 
+logic [7:0] init_data_out;
+
+array_fill init_s_array (
     .clk(clk),
     .start(reset_n),
-    .finish(finish),
-    .data(i)
+    .finish(init_finish),
+    .data(init_data_out)
 );
 
+logic shuffle_finish, shuffle_wren;
+logic [7:0] shuffle_data_out, shuffle_addr_out;
+
+array_shuffle shuffle_s_array (
+    .clk(clk),
+    .start(init_finish),
+    .data_in(mem_data_out),
+    .sw_in(SW),
+    .finish(shuffle_finish),
+    .mem_write(shuffle_wren),
+    .addr_out(shuffle_addr_out),
+    .data_out(shuffle_data_out)
+);
+
+assign mem_write = init_finish ? 1'b1 : shuffle_wren;
+assign mem_addr = init_finish ? init_data_out : shuffle_addr_out;
+assign mem_data_out = init_finish ? init_data_out : shuffle_data_out;
+
 s_memory mem (
-    .address(i), 
+    .address(mem_addr), 
     .clock(clk),
-    .data(i),
-    .wren(1),
-    .q(out)
+    .data(mem_data_in),
+    .wren(mem_write),
+    .q(mem_data_out)
 );
 
 
