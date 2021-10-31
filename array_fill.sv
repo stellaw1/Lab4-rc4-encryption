@@ -3,7 +3,7 @@ module array_fill
 		input logic clk,
 		input logic start,
 		output logic finish,
-		output logic [7:0] array [255:0]
+		output logic [7:0] data
 	);
 
 	parameter waiting = 2'b00;
@@ -23,7 +23,6 @@ module array_fill
 			end
 			counting:
 			begin
-				array[counter] <= counter;
 				if (counter == 8'd255)
 					state <= finished;
 				else
@@ -35,4 +34,5 @@ module array_fill
 	end
 
 	assign finish = state[1];
+	assign data = counter;
 endmodule

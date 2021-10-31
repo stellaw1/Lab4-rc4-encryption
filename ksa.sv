@@ -42,6 +42,25 @@ SevenSegmentDisplayDecoder ssdd (
     .nIn(nIn)
 );
 
+logic finish;
+logic [7:0] i;
+logic [7:0] out;
+
+array_fill for_i (
+    .clk(clk),
+    .start(reset_n),
+    .finish(finish),
+    .data(i)
+);
+
+s_memory mem (
+    .address(i), 
+    .clock(clk),
+    .data(i),
+    .wren(1),
+    .q(out)
+);
+
 
 endmodule
 
