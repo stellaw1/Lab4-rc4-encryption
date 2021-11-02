@@ -29,7 +29,9 @@ module array_fill
 					counter <= counter + 8'b1;
 			end
 			finished:
-				state <= waiting;
+				state <= finished;
+			default:
+				state <= finished;
 		endcase
 	end
 

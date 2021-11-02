@@ -31,7 +31,7 @@ module array_shuffle_tb();
 
 		start = 1'b1;
 
-		#31000;
+		#42000;
     	$stop;
 	end
 endmodule

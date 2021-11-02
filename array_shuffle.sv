@@ -11,16 +11,18 @@ module array_shuffle
 	);
 
 	// FSM states
-	parameter WAITING = 9'b000_000_000;
-	parameter COUNTING = 9'b001_000_000;
-	parameter READI = 9'b010_000_010;
-	parameter CALCJ = 9'b011_000_100;
-	parameter READJ = 9'b100_001_001;
-	parameter WRITEJ = 9'b101_011_000;
-	parameter WRITEI = 9'b110_010_000;
-	parameter FINISH = 9'b111_100_000;
+	parameter WAITING = 10'b0000_000_000;
+	parameter COUNTING = 10'b0001_000_000;
+	parameter READI = 10'b0010_000_010;
+	parameter READI_WAIT = 10'b1010_000_010;
+	parameter CALCJ = 10'b0011_000_100;
+	parameter READJ = 10'b0100_001_001;
+	parameter READJ_WAIT = 10'b1100_001_001;
+	parameter WRITEJ = 10'b0101_011_000;
+	parameter WRITEI = 10'b0110_010_000;
+	parameter FINISH = 10'b0111_100_000;
 	
-	reg [8:0] state = WAITING;
+	reg [9:0] state = WAITING;
 
 	// variables
 	reg [7:0] counter = 8'b0;
@@ -47,10 +49,14 @@ module array_shuffle
 				state <= READI;
 			end
 			READI:
+				state <= READI_WAIT;
+			READI_WAIT:
 				state <= CALCJ;
 			CALCJ:
 				state <= READJ;
 			READJ:
+				state <= READJ_WAIT;
+			READJ_WAIT:
 				state <= WRITEJ;
 			WRITEJ:
 				state <= WRITEI;

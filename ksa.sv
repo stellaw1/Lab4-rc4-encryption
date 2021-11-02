@@ -71,9 +71,9 @@ array_shuffle shuffle_s_array (
     .data_out(shuffle_data_out)
 );
 
-assign mem_write = init_finish ? 1'b1 : shuffle_wren;
-assign mem_addr = init_finish ? init_data_out : shuffle_addr_out;
-assign mem_data_out = init_finish ? init_data_out : shuffle_data_out;
+assign mem_write = init_finish ? shuffle_wren : 1'b1;
+assign mem_addr = init_finish ? shuffle_addr_out : init_data_out;
+assign mem_data_in = init_finish ? shuffle_data_out : init_data_out;
 
 s_memory mem (
     .address(mem_addr), 
