@@ -1,0 +1,15 @@
+{C:/Users/stell/OneDrive - UBC/Courses/CPEN311/Labs/Lab4/Lab4_template_de1soc/sim/array_shuffle/array_shuffle_tb.sv} {1 {vlog -work work -sv -stats=none {C:/Users/stell/OneDrive - UBC/Courses/CPEN311/Labs/Lab4/Lab4_template_de1soc/sim/array_shuffle/array_shuffle_tb.sv}
+Model Technology ModelSim ALTERA vlog 10.3c Compiler 2014.09 Sep 20 2014
+-- Compiling module array_shuffle_tb
+
+Top level modules:
+	array_shuffle_tb
+
+} {} {}} {C:/Users/stell/OneDrive - UBC/Courses/CPEN311/Labs/Lab4/Lab4_template_de1soc/array_shuffle.sv} {1 {vlog -work work -sv -stats=none {C:/Users/stell/OneDrive - UBC/Courses/CPEN311/Labs/Lab4/Lab4_template_de1soc/array_shuffle.sv}
+Model Technology ModelSim ALTERA vlog 10.3c Compiler 2014.09 Sep 20 2014
+-- Compiling module array_shuffle
+
+Top level modules:
+	array_shuffle
+
+} {} {}}

@@ -6,21 +6,21 @@ module array_shuffle
 		input logic [9:0] sw_in,
 		output logic finish,
 		output logic mem_write,
-		output logic [7:0] addr_out
+		output logic [7:0] addr_out,
 		output logic [7:0] data_out
 	);
 
 	// FSM states
-	reg [8:0] state = waiting;
-
 	parameter WAITING = 9'b000_000_000;
 	parameter COUNTING = 9'b001_000_000;
 	parameter READI = 9'b010_000_010;
 	parameter CALCJ = 9'b011_000_100;
 	parameter READJ = 9'b100_001_001;
-	parameter WRITEJ = 9'b110_011_000;
-	parameter WRITEI = 9'b101_010_000;
+	parameter WRITEJ = 9'b101_011_000;
+	parameter WRITEI = 9'b110_010_000;
 	parameter FINISH = 9'b111_100_000;
+	
+	reg [8:0] state = WAITING;
 
 	// variables
 	reg [7:0] counter = 8'b0;
@@ -37,17 +37,14 @@ module array_shuffle
 			WAITING:
 			begin
 				if (start)
-					state <= COUNTING;
+					state <= READI;
 				else
 					state <= WAITING;
 			end
 			COUNTING:
 			begin
-				if (counter == 8'd255)
-					state <= FINISH;
-				else
-					counter <= counter + 8'b1;
-					state <= READI;
+				counter <= counter + 8'b1;
+				state <= READI;
 			end
 			READI:
 				state <= CALCJ;
@@ -58,7 +55,12 @@ module array_shuffle
 			WRITEJ:
 				state <= WRITEI;
 			WRITEI:
-				state <= COUNTING;
+			begin
+				if (counter >= 8'b1111_1111)
+					state <= FINISH;
+				else 
+					state <= COUNTING;
+			end
 			FINISH:
 				state <= FINISH;
 			default:
