@@ -66,26 +66,6 @@ module ksa (
 		.data_out(shuffle_data_out)
 	);
 
-	assign mem_write = init_start
-		? 1'b1 
-		: shuffle_start
-			? shuffle_wren
-			: decrypt_start
-				? decrypt_wren
-				: 1'b0;
-
-	assign mem_addr = init_start
-		? init_data_out
-		: shuffle_start
-			? shuffle_addr_out
-			: decrypt_addr;
-
-	assign mem_data_in = init_start
-		? init_data_out
-		: shuffle_start
-			? shuffle_data_out
-			: decrypt_data_out;
-
 	s_memory mem (
 		.address(mem_addr),
 		.clock(clk),
@@ -117,7 +97,7 @@ module ksa (
 	);
 
 	logic decrypt_start, decrypt_finish, decrypt_write;
-	logic [7:0] decrypt_addr
+	logic [7:0] decrypt_addr;
 	logic [4:0] decrypt_ram_addr;
 	logic [7:0] decrypt_data_out;
 
@@ -147,6 +127,26 @@ module ksa (
 		.valid(check_valid),
 		.address(check_ram_addr)
 	);
+
+	assign mem_write = init_start
+		? 1'b1 
+		: shuffle_start
+			? shuffle_wren
+			: decrypt_start
+				? decrypt_write
+				: 1'b0;
+
+	assign mem_addr = init_start
+		? init_data_out
+		: shuffle_start
+			? shuffle_addr_out
+			: decrypt_addr;
+
+	assign mem_data_in = init_start
+		? init_data_out
+		: shuffle_start
+			? shuffle_data_out
+			: decrypt_data_out;
 
 	assign ram_address = decrypt_start
 		? decrypt_ram_addr

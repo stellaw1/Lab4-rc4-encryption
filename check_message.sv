@@ -12,6 +12,8 @@ module check_message
 	parameter VALID      = 5'b011_11;
 	parameter INVALID    = 5'b100_10;
 
+	reg [4:0] state = WAITING;
+
 	reg [4:0] addr = 5'b0;
 	always_ff@(posedge clk)
 	begin
@@ -27,9 +29,10 @@ module check_message
 			READ_NEXT:
 				if (addr == 4'b1111)
 					state <= VALID;
-				else
+				else begin
 					addr <= addr + 5'b1;
 					state <= CHECK_READ;
+				end
 			VALID:
 				state <= WAITING;
 			INVALID:

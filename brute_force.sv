@@ -5,7 +5,7 @@ module brute_force
 		input logic init_finish,
 		input logic shuffle_finish,
 		input logic decrypt_finish,
-		input logic check_finish
+		input logic check_finish,
 		input logic check_valid,
 		output logic init_start,
 		output logic shuffle_start,
@@ -75,7 +75,7 @@ module brute_force
 
 	assign init_start = state[0];
 	assign shuffle_start = state[1];
-	assign decrypt_start = state[2]
+	assign decrypt_start = state[2];
 	assign check_start = state[3];
 	assign finish = state[4];
 	assign found = state[5];
