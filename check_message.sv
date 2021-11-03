@@ -10,7 +10,7 @@ module check_message
 	parameter CHECK_READ = 5'b001_00;
 	parameter READ_NEXT  = 5'b010_00;
 	parameter VALID      = 5'b011_11;
-	parameter INVALID    = 5'b100_10;
+	parameter INVALID    = 5'b100_01;
 
 	reg [4:0] state = WAITING;
 

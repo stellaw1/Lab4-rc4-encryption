@@ -42,7 +42,7 @@ module brute_force
 			INIT:
 			begin
 				if (init_finish)
-					state <= DECRYPT;
+					state <= SHUFFLE;
 			end
 			SHUFFLE:
 			begin
