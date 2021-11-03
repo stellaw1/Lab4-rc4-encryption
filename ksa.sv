@@ -36,11 +36,6 @@ module ksa (
 	logic [6:0] ssOut;
 	logic [3:0] nIn;
 
-	SevenSegmentDisplayDecoder ssdd (
-		.ssOut(ssOut),
-		.nIn(nIn)
-	);
-
 	logic mem_write;
 	logic [7:0] mem_addr;
 	logic [7:0] mem_data_in;
@@ -58,6 +53,7 @@ module ksa (
 
 	logic shuffle_start, shuffle_finish, shuffle_wren;
 	logic [7:0] shuffle_data_out, shuffle_addr_out;
+	logic [23:0] secret;
 
 	array_shuffle shuffle_s_array (
 		.clk(clk),
@@ -74,17 +70,21 @@ module ksa (
 		? 1'b1 
 		: shuffle_start
 			? shuffle_wren
-			: 1'b0;
+			: decrypt_start
+				? decrypt_wren
+				: 1'b0;
+
 	assign mem_addr = init_start
-		? init_data_out 
-		: shuffle_start 
+		? init_data_out
+		: shuffle_start
 			? shuffle_addr_out
-			: check_addr;
+			: decrypt_addr;
+
 	assign mem_data_in = init_start
-		? init_data_out,
+		? init_data_out
 		: shuffle_start
 			? shuffle_data_out
-			: 8'b0;
+			: decrypt_data_out;
 
 	s_memory mem (
 		.address(mem_addr),
@@ -94,35 +94,109 @@ module ksa (
 		.q(mem_data_out)
 	);
 
-	logic [23:0] secret;
-	logic decrypt_finish, check_start, check_finish, message_found, check_valid;
-	logic [31:0] encrypted_message;
-	logic [7:0] check_addr;
+	logic [4:0] rom_address;
+	logic [7:0] rom_read_data;
+
+	message encrypted (
+		.address(rom_address),
+		.clock(clk),
+		.q(rom_read_data)
+	);
+
+	logic [4:0] ram_address;
+	logic [7:0] ram_write_data;
+	logic ram_wren;
+	logic ram_read_data;
+
+	ram decrypted (
+		.address(ram_address),
+		.clock(clk),
+		.data(ram_write_data),
+		.wren(ram_wren),
+		.q(ram_read_data)
+	);
+
+	logic decrypt_start, decrypt_finish, decrypt_write;
+	logic [7:0] decrypt_addr
+	logic [4:0] decrypt_ram_addr;
+	logic [7:0] decrypt_data_out;
+
+	decrypt_message decryptor (
+		.clk(clk),
+		.start(decrypt_start),
+		.s_read_data(mem_data_out),
+		.rom_read_data(rom_read_data),
+		.s_write(decrypt_write),
+		.ram_write(ram_wren),
+		.s_address(decrypt_addr),
+		.ram_address(decrypt_ram_addr),
+		.rom_address(rom_address),
+		.s_write_data(decrypt_data_out),
+		.ram_write_data(ram_write_data),
+		.finish(decrypt_finish)
+	);
+
+	logic check_start, check_finish, check_valid;
+	logic [7:0] check_ram_addr;
 
 	check_message test_decrypt (
 		.clk(clk),
 		.start(check_start),
-		.read_character(mem_data_out),
+		.read_character(ram_read_data),
 		.finish(check_finish),
 		.valid(check_valid),
-		.address(check_addr)
+		.address(check_ram_addr)
 	);
 
-	brute_force decrypt (
+	assign ram_address = decrypt_start
+		? decrypt_ram_addr
+		: check_ram_addr;
+
+	logic search_finish, message_found;
+	logic [31:0] encrypted_message;
+
+	brute_force search_message (
 		.clk(clk),
 		.start(reset_n),
 		.init_finish(init_finish),
 		.shuffle_finish(shuffle_finish),
+		.decrypt_finish(decrypt_finish),
 		.check_finish(check_finish),
 		.check_valid(check_valid),
-		.data(encrypted_message),
 		.init_start(init_start),
 		.shuffle_start(shuffle_start),
+		.decrypt_start(decrypt_start),
 		.check_start(check_start),
-		.finish(decrypt_finish),
+		.finish(search_finish),
 		.found(message_found),
 		.secret_key(secret)
 	);
 
+	assign LEDR[0] = search_finish & message_found;
+	assign LEDR[1] = search_finish & !message_found;
 
+	SevenSegmentDisplayDecoder hex0 (
+		.ssOut(HEX0),
+		.nIn(secret[3:0])
+	);
+	SevenSegmentDisplayDecoder hex1 (
+		.ssOut(HEX1),
+		.nIn(secret[7:4])
+	);
+	SevenSegmentDisplayDecoder hex2 (
+		.ssOut(HEX2),
+		.nIn(secret[11:8])
+	);
+	SevenSegmentDisplayDecoder hex3 (
+		.ssOut(HEX3),
+		.nIn(secret[15:12])
+	);
+	SevenSegmentDisplayDecoder hex4 (
+		.ssOut(HEX4),
+		.nIn(secret[19:16])
+	);
+	SevenSegmentDisplayDecoder hex5 (
+		.ssOut(HEX5),
+		.nIn(secret[23:20])
+	);
 endmodule

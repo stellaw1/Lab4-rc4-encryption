@@ -3,7 +3,7 @@ module check_message
 		input logic clk, start,
 		input logic [7:0] read_character,
 		output logic finish, valid,
-		output logic [3:0] address
+		output logic [4:0] address
 	);
 
 	parameter WAITING    = 5'b000_00;
@@ -12,7 +12,7 @@ module check_message
 	parameter VALID      = 5'b011_11;
 	parameter INVALID    = 5'b100_10;
 
-	reg [3:0] addr = 4'b0;
+	reg [4:0] addr = 5'b0;
 	always_ff@(posedge clk)
 	begin
 		case (state)
@@ -28,7 +28,7 @@ module check_message
 				if (addr == 4'b1111)
 					state <= VALID;
 				else
-					addr <= addr + 4'b1;
+					addr <= addr + 5'b1;
 					state <= CHECK_READ;
 			VALID:
 				state <= WAITING;
