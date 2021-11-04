@@ -116,6 +116,10 @@ module decrypt_message
 					state <= INCREMENT_I;
 				end
 			end
+			DECRYPTED:
+			begin
+				state <= WAITING;
+			end
 		endcase
 	end
 

@@ -6,30 +6,30 @@ module array_fill
 		output logic [7:0] data
 	);
 
-	parameter waiting = 2'b00;
-	parameter counting = 2'b01;
-	parameter finished = 2'b10;
+	parameter WAITING  = 2'b00;
+	parameter COUNTING = 2'b01;
+	parameter FINISHED = 2'b10;
 
 	reg [7:0] counter = 8'b0;
-	reg [1:0] state = waiting;
+	reg [1:0] state = WAITING;
 	
 	always_ff@(posedge clk)
 	begin
 		case (state)
-			waiting:
+			WAITING:
 			begin
 				if (start)
-					state <= counting;
+					state <= COUNTING;
 			end
-			counting:
+			COUNTING:
 			begin
 				if (counter == 8'd255)
-					state <= finished;
+					state <= FINISHED;
 				else
 					counter <= counter + 8'b1;
 			end
-			finished:
-				state <= waiting;
+			FINISHED:
+				state <= WAITING;
 		endcase
 	end
 

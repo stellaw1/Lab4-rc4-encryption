@@ -62,7 +62,7 @@ module array_shuffle
 					state <= COUNTING;
 			end
 			FINISH:
-				state <= FINISH;
+				state <= WAITING;
 			default:
 				state <= FINISH;
 		endcase
