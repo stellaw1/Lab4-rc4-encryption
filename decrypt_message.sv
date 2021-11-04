@@ -22,16 +22,18 @@ module decrypt_message
 	parameter READ_J         = 15'b00101_0100010000;
 	parameter READ_J_WAIT    = 15'b00110_0100010000;
 	parameter WRITE_J        = 15'b00111_0010000001;
-	parameter WRITE_I        = 15'b01000_0100000001;
-	parameter COMPUTE_SUM    = 15'b01001_0000000000;
-	parameter READ_SUM       = 15'b01010_1000100000;
-	parameter READ_SUM_WAIT  = 15'b01011_1000100000;
-	parameter READ_K         = 15'b01100_0001000000;
-	parameter READ_K_WAIT    = 15'b01101_0001000000;
-	parameter COMPUTE_OUTPUT = 15'b01110_0000000000;
-	parameter WRITE_OUTPUT   = 15'b01111_0000000010;
-	parameter INCREMENT_K    = 15'b10000_0000000000;
-	parameter DECRYPTED      = 15'b10001_0000000100;
+	parameter WRITE_J_WAIT   = 15'b01000_0010000001;
+	parameter WRITE_I        = 15'b01001_0100000001;
+	parameter WRITE_I_WAIT   = 15'b01010_0100000001;
+	parameter COMPUTE_SUM    = 15'b01011_0000000000;
+	parameter READ_SUM       = 15'b01100_1000100000;
+	parameter READ_SUM_WAIT  = 15'b01101_1000100000;
+	parameter READ_K         = 15'b01110_0001000000;
+	parameter READ_K_WAIT    = 15'b01111_0001000000;
+	parameter COMPUTE_OUTPUT = 15'b10000_0000000000;
+	parameter WRITE_OUTPUT   = 15'b10001_0000000010;
+	parameter INCREMENT_K    = 15'b10010_0000000000;
+	parameter DECRYPTED      = 15'b10011_0000000100;
 
 	reg [14:0] state = WAITING;
 
@@ -74,20 +76,27 @@ module decrypt_message
 			end
 			READ_J:
 			begin
-				s_write_data <= si;
 				state <= READ_J_WAIT;
 			end
 			READ_J_WAIT:
 			begin
-				s_write_data <= si;
 				state <= WRITE_J;
 			end
 			WRITE_J:
 			begin
 				s_write_data <= sj;
+				state <= WRITE_J_WAIT;
+			end
+			WRITE_J_WAIT:
+			begin
 				state <= WRITE_I;
 			end
 			WRITE_I:
+			begin
+				s_write_data <= si;
+				state <= WRITE_I_WAIT;
+			end
+			WRITE_I_WAIT:
 			begin
 				state <= COMPUTE_SUM;
 			end
