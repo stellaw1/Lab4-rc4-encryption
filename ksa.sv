@@ -48,7 +48,7 @@ logic [7:0] mem_addr;
 logic [7:0] mem_data_in;
 logic [7:0] mem_data_out;
 
-logic init_finish; 
+logic init_start, init_finish; 
 logic [7:0] init_data_out;
 
 array_fill init_s_array (
@@ -58,23 +58,20 @@ array_fill init_s_array (
     .data(init_data_out)
 );
 
-logic shuffle_finish, shuffle_wren;
+logic shuffle_start, shuffle_finish, shuffle_wren;
 logic [7:0] shuffle_data_out, shuffle_addr_out;
+logic [23:0] secret;
 
 array_shuffle shuffle_s_array (
     .clk(clk),
     .start(init_finish),
     .data_in(mem_data_out),
-    .sw_in(SW),
+    .secret(secret),
     .finish(shuffle_finish),
     .mem_write(shuffle_wren),
     .addr_out(shuffle_addr_out),
     .data_out(shuffle_data_out)
 );
-
-assign mem_write = init_finish ? shuffle_wren : 1'b1;
-assign mem_addr = init_finish ? shuffle_addr_out : init_data_out;
-assign mem_data_in = init_finish ? shuffle_data_out : init_data_out;
 
 s_memory mem (
     .address(mem_addr), 
