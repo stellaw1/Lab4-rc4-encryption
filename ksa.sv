@@ -124,7 +124,7 @@ decrypt_message decryptor (
 );
 
 logic check_start, check_finish, check_valid;
-logic [7:0] check_ram_addr;
+logic [4:0] check_ram_addr;
 
 check_message test_decrypt (
     .clk(clk),

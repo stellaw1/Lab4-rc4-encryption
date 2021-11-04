@@ -43,4 +43,5 @@ module check_message
 	assign finish = state[0];
 	assign valid = state[1];
 
+	assign address = addr;
 endmodule
