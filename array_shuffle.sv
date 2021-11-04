@@ -3,7 +3,7 @@ module array_shuffle
 		input logic clk,
 		input logic start,
 		input logic [7:0] data_in,
-		input logic [9:0] sw_in,
+		input logic [23:0] secret,
 		output logic finish,
 		output logic mem_write,
 		output logic [7:0] addr_out,
@@ -68,7 +68,7 @@ module array_shuffle
 					state <= COUNTING;
 			end
 			FINISH:
-				state <= FINISH;
+				state <= WAITING;
 			default:
 				state <= FINISH;
 		endcase
@@ -109,8 +109,8 @@ module array_shuffle
 
 
 	// init secret_key array
-	assign secret_key[0] = 8'b0;
-	assign secret_key[1] = {6'b0, sw_in[9:8]};
-	assign secret_key[2] = sw_in[7:0];
+	assign secret_key[0] = secret[23:16];
+	assign secret_key[1] = secret[15:8];
+	assign secret_key[2] = secret[7:0];
 	assign secret_key_index = counter % 3;
 endmodule
