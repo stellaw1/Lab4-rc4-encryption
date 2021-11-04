@@ -18,8 +18,10 @@ module array_fill
 		case (state)
 			WAITING:
 			begin
-				if (start)
+				if (start) begin
+					counter <= 8'b0;
 					state <= COUNTING;
+				end
 			end
 			COUNTING:
 			begin
@@ -29,9 +31,7 @@ module array_fill
 					counter <= counter + 8'b1;
 			end
 			FINISHED:
-				state <= FINISHED;
-			default:
-				state <= FINISHED;
+				state <= WAITING;
 		endcase
 	end
 

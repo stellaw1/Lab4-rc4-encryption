@@ -8,9 +8,10 @@ module check_message
 
 	parameter WAITING    = 5'b000_00;
 	parameter CHECK_READ = 5'b001_00;
-	parameter READ_NEXT  = 5'b010_00;
-	parameter VALID      = 5'b011_11;
-	parameter INVALID    = 5'b100_01;
+	parameter READ_WAIT  = 5'b010_00;
+	parameter READ_NEXT  = 5'b011_00;
+	parameter VALID      = 5'b100_11;
+	parameter INVALID    = 5'b101_01;
 
 	reg [4:0] state = WAITING;
 
@@ -19,24 +20,39 @@ module check_message
 	begin
 		case (state)
 			WAITING:
+			begin
 				if (start)
-					state <= CHECK_READ;
+					addr <= 5'b0;
+					state <= READ_WAIT;
+			end
+			READ_WAIT:
+			begin
+				state <= CHECK_READ;
+			end
 			CHECK_READ:
+			begin
 				if ((read_character < 8'd97 || read_character > 8'd122) && read_character != 8'd32)
 					state <= INVALID;
 				else
 					state <= READ_NEXT;
+			end
 			READ_NEXT:
-				if (addr == 4'b1111)
+			begin
+				if (addr == 5'b11111)
 					state <= VALID;
 				else begin
 					addr <= addr + 5'b1;
-					state <= CHECK_READ;
+					state <= READ_WAIT;
 				end
+			end
 			VALID:
+			begin
 				state <= WAITING;
+			end
 			INVALID:
+			begin
 				state <= WAITING;
+			end
 		endcase
 	end
 

@@ -38,10 +38,10 @@ module array_shuffle
 		case (state)
 			WAITING:
 			begin
-				if (start)
+				if (start) begin
+					counter <= 8'b0;
 					state <= READI;
-				else
-					state <= WAITING;
+				end
 			end
 			COUNTING:
 			begin
@@ -69,8 +69,6 @@ module array_shuffle
 			end
 			FINISH:
 				state <= WAITING;
-			default:
-				state <= FINISH;
 		endcase
 	end
 

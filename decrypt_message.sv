@@ -53,8 +53,12 @@ module decrypt_message
 		case (state)
 			WAITING:
 			begin
-				if (start)
+				if (start) begin
+					i <= 8'b0;
+					j <= 8'b0;
+					k <= 8'b0;
 					state <= INCREMENT_I;
+				end
 			end
 			INCREMENT_I:
 			begin
