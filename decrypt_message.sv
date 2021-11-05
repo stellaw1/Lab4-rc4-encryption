@@ -1,6 +1,6 @@
 module decrypt_message
 	(
-		input logic clk,
+		input logic clk, reset,
 		input logic start,
 		input logic [7:0] s_read_data,
 		input logic [7:0] rom_read_data,
@@ -53,12 +53,13 @@ module decrypt_message
 		case (state)
 			WAITING:
 			begin
-				if (start) begin
+				if (reset) begin
 					i <= 8'b0;
 					j <= 8'b0;
-					k <= 8'b0;
-					state <= INCREMENT_I;
+					k <= 5'b0;
 				end
+				else if (start)
+					state <= INCREMENT_I;
 			end
 			INCREMENT_I:
 			begin

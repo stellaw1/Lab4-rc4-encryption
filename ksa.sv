@@ -48,11 +48,12 @@ logic [7:0] mem_addr;
 logic [7:0] mem_data_in;
 logic [7:0] mem_data_out;
 
-logic init_start, init_finish; 
+logic init_start, init_finish, reset;
 logic [7:0] init_data_out;
 
 array_fill init_s_array (
     .clk(clk),
+		.reset(reset),
     .start(reset_n),
     .finish(init_finish),
     .data(init_data_out)
@@ -64,6 +65,7 @@ logic [23:0] secret;
 
 array_shuffle shuffle_s_array (
     .clk(clk),
+		.reset(reset),
     .start(init_finish),
     .data_in(mem_data_out),
     .secret(secret),
@@ -110,6 +112,7 @@ logic [7:0] decrypt_data_out;
 
 decrypt_message decryptor (
     .clk(clk),
+		.reset(reset),
     .start(decrypt_start),
     .s_read_data(mem_data_out),
     .rom_read_data(rom_read_data),
@@ -128,6 +131,7 @@ logic [4:0] check_ram_addr;
 
 check_message test_decrypt (
     .clk(clk),
+		.reset(reset),
     .start(check_start),
     .read_character(ram_read_data),
     .finish(check_finish),
@@ -176,6 +180,7 @@ brute_force search_message (
     .check_start(check_start),
     .finish(search_finish),
     .found(message_found),
+		.reset(reset),
     .secret_key(secret)
 );
 

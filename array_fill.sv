@@ -1,6 +1,6 @@
 module array_fill 
 	(
-		input logic clk,
+		input logic clk, reset,
 		input logic start,
 		output logic finish,
 		output logic [7:0] data
@@ -18,10 +18,10 @@ module array_fill
 		case (state)
 			WAITING:
 			begin
-				if (start) begin
+				if (reset)
 					counter <= 8'b0;
+				else if (start)
 					state <= COUNTING;
-				end
 			end
 			COUNTING:
 			begin

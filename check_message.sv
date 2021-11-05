@@ -1,6 +1,6 @@
 module check_message
 	(
-		input logic clk, start,
+		input logic clk, reset, start,
 		input logic [7:0] read_character,
 		output logic finish, valid,
 		output logic [4:0] address
@@ -21,8 +21,9 @@ module check_message
 		case (state)
 			WAITING:
 			begin
-				if (start)
+				if (reset)
 					addr <= 5'b0;
+				else if (start)
 					state <= READ_WAIT;
 			end
 			READ_WAIT:

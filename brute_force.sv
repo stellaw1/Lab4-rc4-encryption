@@ -13,23 +13,25 @@ module brute_force
 		output logic check_start,
 		output logic finish,
 		output logic found,
+		output logic reset,
 		output logic [23:0] secret_key
 	);
 
 	parameter max_secret = 24'b00111111_11111111_11111111;
 
-	parameter WAITING    = 10'b0000_000000;
-	parameter INIT       = 10'b0001_000001;
-	parameter SHUFFLE    = 10'b0010_000010;
-	parameter DECRYPT    = 10'b0011_000100;
-	parameter CHECK_VAL  = 10'b0100_001000;
-	parameter INCREMENT  = 10'b0101_000000;
-	parameter READ_CHECK = 10'b0110_000000;
-	parameter FOUND      = 10'b0111_110000;
-	parameter NOT_FOUND  = 10'b1000_010000;
+	parameter WAITING    = 11'b0000_0000000;
+	parameter INIT       = 11'b0001_0000001;
+	parameter SHUFFLE    = 11'b0010_0000010;
+	parameter DECRYPT    = 11'b0011_0000100;
+	parameter CHECK_VAL  = 11'b0100_0001000;
+	parameter INCREMENT  = 11'b0101_0000000;
+	parameter READ_CHECK = 11'b0110_0000000;
+	parameter FOUND      = 11'b0111_0110000;
+	parameter NOT_FOUND  = 11'b1000_0010000;
+	parameter RESET      = 11'b1001_1000000;
 
 	reg [23:0] secret = 24'b0;
-	reg [9:0] state = WAITING;
+	reg [10:0] state = WAITING;
 
 	always_ff@(posedge clk)
 	begin
@@ -37,7 +39,11 @@ module brute_force
 			WAITING:
 			begin
 				if (start)
-					state <= INIT;
+					state <= RESET;
+			end
+			RESET:
+			begin
+				state <= INIT;
 			end
 			INIT:
 			begin
@@ -68,7 +74,7 @@ module brute_force
 			INCREMENT:
 			begin
 				secret <= secret + 24'b1;
-				state <= INIT;
+				state <= RESET;
 			end
 		endcase
 	end
@@ -79,6 +85,7 @@ module brute_force
 	assign check_start = state[3];
 	assign finish = state[4];
 	assign found = state[5];
+	assign reset = state[6];
 
 	assign secret_key = secret;
 endmodule

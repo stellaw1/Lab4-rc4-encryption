@@ -1,6 +1,6 @@
 module array_shuffle
 	(
-		input logic clk,
+		input logic clk, reset,
 		input logic start,
 		input logic [7:0] data_in,
 		input logic [23:0] secret,
@@ -38,10 +38,10 @@ module array_shuffle
 		case (state)
 			WAITING:
 			begin
-				if (start) begin
+				if (reset)
 					counter <= 8'b0;
+				else if (start)
 					state <= READI;
-				end
 			end
 			COUNTING:
 			begin
