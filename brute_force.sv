@@ -41,8 +41,6 @@ module brute_force
 			end
 			INIT:
 			begin
-				if (secret == 24'b1)
-					state <= FOUND;
 				if (init_finish)
 					state <= SHUFFLE;
 			end

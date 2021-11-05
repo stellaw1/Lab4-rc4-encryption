@@ -93,7 +93,7 @@ message encrypted (
 logic [4:0] ram_address;
 logic [7:0] ram_write_data;
 logic ram_wren;
-logic ram_read_data;
+logic [7:0] ram_read_data;
 
 ram decrypted (
     .address(ram_address),
@@ -136,7 +136,7 @@ check_message test_decrypt (
 );
 
 assign mem_write = init_start
-    ? 1'b1 
+    ? 1'b1
     : shuffle_start
         ? shuffle_wren
         : decrypt_start
