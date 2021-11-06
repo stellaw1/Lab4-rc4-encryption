@@ -75,7 +75,8 @@ module array_shuffle
 	// DFF storing j value
 	always_ff @(posedge clk)
 	begin
-		if (en_j) j <= j + si + secret_key[secret_key_index];
+		if (reset) j <= 8'b0;
+		else if (en_j) j <= j + si + secret_key[secret_key_index];
 		else j <= j;
 	end
 

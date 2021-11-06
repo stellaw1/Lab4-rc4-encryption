@@ -66,7 +66,7 @@ logic [23:0] secret;
 array_shuffle shuffle_s_array (
     .clk(clk),
 		.reset(reset),
-    .start(init_finish),
+    .start(shuffle_start),
     .data_in(mem_data_out),
     .secret(secret),
     .finish(shuffle_finish),
