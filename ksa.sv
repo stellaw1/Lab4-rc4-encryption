@@ -54,7 +54,7 @@ logic [7:0] init_data_out;
 array_fill init_s_array (
     .clk(clk),
 		.reset(reset),
-    .start(reset_n),
+    .start(init_start),
     .finish(init_finish),
     .data(init_data_out)
 );
