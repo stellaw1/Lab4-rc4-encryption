@@ -10,15 +10,15 @@ cModel Technology
 dC:/Users/stell/OneDrive - UBC/Courses/CPEN311/Homework/hw2/q2
 varray_shuffle
 Z0 DXx6 sv_std 3 std 0 22 <EOTafDcUY:cQeO^ICn]m3
-Z1 !s110 1635894609
+Z1 !s110 1636278628
 !i10b 1
-!s100 dnz`ALX[i6c22?d^hlQgJ0
-Ih3g1WBiaS2Q7Si@CIfkVU0
+!s100 YzPMVnTFRn3]d_Yb6M:0?0
+IXzoC55[Jbzb11>Y<>n32O3
 Z2 V`JN@9S9cnhjKRR_L]QIcM3
 !s105 array_shuffle_sv_unit
 S1
 Z3 dC:/Users/stell/OneDrive - UBC/Courses/CPEN311/Labs/Lab4/Lab4_template_de1soc/sim/array_shuffle
-w1635894446
+w1636264637
 8C:/Users/stell/OneDrive - UBC/Courses/CPEN311/Labs/Lab4/Lab4_template_de1soc/array_shuffle.sv
 FC:/Users/stell/OneDrive - UBC/Courses/CPEN311/Labs/Lab4/Lab4_template_de1soc/array_shuffle.sv
 L0 1
@@ -26,7 +26,7 @@ Z4 OV;L;10.3c;59
 r1
 !s85 0
 31
-!s108 1635894609.494000
+!s108 1636278628.212000
 !s107 C:/Users/stell/OneDrive - UBC/Courses/CPEN311/Labs/Lab4/Lab4_template_de1soc/array_shuffle.sv|
 !s90 -reportprogress|300|-work|work|-sv|-stats=none|C:/Users/stell/OneDrive - UBC/Courses/CPEN311/Labs/Lab4/Lab4_template_de1soc/array_shuffle.sv|
 !i113 1
@@ -35,13 +35,13 @@ varray_shuffle_tb
 R0
 R1
 !i10b 1
-!s100 k^hL]Lf:gn4hCN=V3PfDU0
-IGVCm?7La@H`o16YOBlOni3
+!s100 lQNa3DgXD=Kg1RL]90^C]1
+ImI^6oRJM`?Chd;?GWJ9dD1
 R2
 !s105 array_shuffle_tb_sv_unit
 S1
 R3
-w1635894598
+w1635891101
 8C:/Users/stell/OneDrive - UBC/Courses/CPEN311/Labs/Lab4/Lab4_template_de1soc/sim/array_shuffle/array_shuffle_tb.sv
 FC:/Users/stell/OneDrive - UBC/Courses/CPEN311/Labs/Lab4/Lab4_template_de1soc/sim/array_shuffle/array_shuffle_tb.sv
 L0 1
@@ -49,7 +49,7 @@ R4
 r1
 !s85 0
 31
-!s108 1635894609.449000
+!s108 1636278628.169000
 !s107 C:/Users/stell/OneDrive - UBC/Courses/CPEN311/Labs/Lab4/Lab4_template_de1soc/sim/array_shuffle/array_shuffle_tb.sv|
 !s90 -reportprogress|300|-work|work|-sv|-stats=none|C:/Users/stell/OneDrive - UBC/Courses/CPEN311/Labs/Lab4/Lab4_template_de1soc/sim/array_shuffle/array_shuffle_tb.sv|
 !i113 1
